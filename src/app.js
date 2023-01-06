@@ -21,7 +21,14 @@ server.post("/tweets", (req, res) => {
 })
 
 server.get("/tweets", (req, res) => {
-  res.send(tweets)
+  let lastTweets = []
+  for (let i = tweets.length - 1; i >= 0; i--) {
+    lastTweets = [...lastTweets, tweets[i]]
+  }
+  if (lastTweets.length > 10) {
+    lastTweets = lastTweets.slice(0, 10)
+  }
+  res.send(lastTweets)
 })
 
 const PORT = 5000
