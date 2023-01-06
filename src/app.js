@@ -16,9 +16,9 @@ server.post("/sign-up", (req, res) => {
 
 server.post("/tweets", (req, res) => {
   const tweet = req.body
-  const names = users.map(item => item.username)
-  if (names.includes(tweet.username)) {
-    tweets.push({...tweet, avatar: users[users.length - 1].avatar})
+  const usertweet = users.find(item => item.username === tweet.username)
+  if (usertweet !== undefined) {
+    tweets.push({...tweet, avatar: usertweet.avatar})
     res.send('OK')
   } else {
     res.send('UNAUTHORIZED')
